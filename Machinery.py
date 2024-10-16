@@ -50,71 +50,17 @@ key = generate_cryptographically_secure_random_bytes(16)
 private_key = generate_cryptographically_secure_random_integer(10, 900000)
 
 def find_representation(x, num):
-    num_str = str(num)
-    representation = []
-    for digit in num_str:
-        if digit == '-':
-            continue
-        digit_value = int(digit)
-        diff = digit_value - x
-        representation.append(f"[x {'+' if diff >=0 else '-'} {abs(diff)}]")
-    return ''.join(representation)
     
 def parse_string(s):
-    parts = s.split('][')
-    parts[0] = parts[0].lstrip('[')
-    parts[-1] = parts[-1].rstrip(']')
-    return parts
     
 def replace_x(representations, replacement_bytes):
-    result_list = []
-    for rep in representations:
-        rep_bytes = rep.encode()
-        replaced_rep_bytes = rep_bytes.replace(b'x', replacement_bytes)
-        result_list.append(replaced_rep_bytes)
-    return result_list
     
 def adds(lst, n):
-    result = []
-    i = 0
-    rev = lst[::-1]
-    for expr in rev:
-        i += 1
-        if isinstance(expr, bytes):
-            expr_str = expr.decode('latin-1')  # Convert bytes to a string using 'latin-1' encoding
-        else:
-            expr_str = expr
-
-        if not bool(re.search(r"\s", expr_str)):
-            expr_str = expr_str + ' + 0'
-        var, op, num = expr_str.split(" ")
-        x = n % 10
-        num = int(num)
-        if op == '+':
-            new_num = num + x
-        elif op == '-':
-            new_num = -num + x
-        else:
-            print(f"Invalid operation '{op}' in expression '{expr_str}'")
-            return
-        n = int(n / 10)
-        if i == len(rev) and n != 0:
-            new_num += n * 10
-            n = 0
-        if op == '-':
-            if new_num < 0:
-                new_num = abs(new_num)
-            else:
-                op = '+'
-
-        result.append(f"{var} {op} {new_num}")
-    res = result[::-1]
-    return res
-
+    
 # Initialize Firebase Admin SDK with service account credentials
-cred = credentials.Certificate("/home/lucifer/Downloads/voting-machine-f667d-firebase-adminsdk-viafm-dbdb04bde3.json")
+cred = credentials.Certificate(#"--JSON FILE--")
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://voting-machine-f667d-default-rtdb.asia-southeast1.firebasedatabase.app/'
+    'databaseURL': #Database URL
 })
 
 # Reference to the Firebase Realtime Database
@@ -184,76 +130,12 @@ print("Example Unique Party Number(UPN): (Should be kept secret, only to be know
 print()
 
 def extract_integers(representations):
-    extracted_integers = []
-
-    for expr in representations:
-        expr_str = expr.decode('latin-1') if isinstance(expr, bytes) else expr
-
-        try:
-            _, integer_part = expr_str.split(' - ')
-            extracted_integers.append(int(integer_part))
-        except ValueError:
-            print(f"Invalid format in representation: {expr_str}")
-
-    return extracted_integers
 
 def generate_output_representation(representations, x):
-    extracted_integers = extract_integers(representations)
-
-    output_representation = []
-    for integer in extracted_integers:
-        output_representation.append(f'x - {integer}')
-
-    return output_representation
 
 def replace_x(representations, replacement_integer):
-    result_list = []
-
-    for expr in representations:
-        replaced_expr = expr.replace('x', str(replacement_integer))
-        result_list.append(replaced_expr)
-
-    return result_list
 
 def add(lst):
-    result = []
-    carry = 0
-    ra=0
-    i = 0
-    rev = lst[::-1]
-    for expr in rev:
-        i += 1
-        if  bool(re.search(r"\s",expr)) == False:
-            expr = expr + ' + 0'
-        var, op, num = expr.split(" ")
-        
-        num = int(num)
-        var=int(var)
-        if op == '+':
-            new_num = num + var + carry
-        elif op == '-':
-            new_num = -num + var + carry
-        else:
-            print(f"Invalid operation '{op}' in expression '{expr}'")
-            return
-        if i < len(rev) :
-            if new_num > 9:
-                carry = int(new_num / 10)
-                new_num = int(new_num % 10)
-            else:
-                carry=0
-        
-        if op == '-':
-            # Ensure the result is non-negative
-            if new_num < 0:
-                carry -= 1
-                new_num += 10
-        
-        result.append(f"{new_num}")
-    res = result[::-1]
-    for e in res:
-        ra=ra*10+int(e)
-    return ra
 
 import ast
 
