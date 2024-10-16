@@ -103,7 +103,7 @@ def log_in():
     password = password_entry.get()
     
     # Authenticate user using Firebase Authentication REST API
-    url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCDhqNqVA7i0Pn1u0CkRkRvwH0vmeWIVJc"
+    url = "API Key"
     payload = {
         "email": username,
         "password": password,
