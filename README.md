@@ -3,14 +3,14 @@ A dekstop application that allows users to vote securely and keeps the critical 
 
 Requirements:
 
-tkinter
-customtkinter
-firebase_admin
-pillow
-Crypto.Cipher
-Crypto.Random
-python env
-firebase database login and authentication services
+1. tkinter
+2. customtkinter
+3. firebase_admin
+4. pillow
+5. Crypto.Cipher
+6. Crypto.Random
+7. python env
+8. firebase database login and authentication services
 
 ![Screenshot from 2024-10-16 16-15-30](https://github.com/user-attachments/assets/9e456349-3781-44fd-a9ac-bba7781c35c5)
 
